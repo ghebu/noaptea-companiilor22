@@ -5,15 +5,16 @@
 
 ## Agenda
 
-[$ whoami](#headers)  
+[$ whoami](#whoami)
+[What is DevOps?]($DevOps)  
 
 
 
-## $ whoami <a name="$ whoami"/>
+## $ whoami <a name="whoami"/>
 
 ![The picture says it clearly](pics/whoami.png)
 
-## What is DevOps? <a name="What is DevOps"/>
+## What is DevOps? <a name="DevOps"/>
 
 <details><summary>**DevOps is…**</summary>
 
