@@ -4,12 +4,11 @@
 ## Round of introduction
 
 ## Agenda
-##### Table of Contents  
+
 [Headers](#headers)  
 [Emphasis](#emphasis)  
-...snip...    
 <a name="headers"/>
-## Headers
+
 ## $ whoami
 
 ![The picture says it clearly](pics/whoami.png)
