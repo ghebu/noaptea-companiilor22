@@ -72,3 +72,7 @@ Continuous Delivery   &rarr; is an approach which incorporates the concepts of c
 ## RoadMap to DevOps
 [DevOps RoadMap](https://roadmap.sh/devops)
 
+
+
+## Articles
+-  https://faun.pub/devops-roadmap-2022-340934d360f9
