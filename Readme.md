@@ -10,3 +10,5 @@
 ![The picture says it clearly](pics/whoami.png)
 
 ## What is DevOps? 
+
+(pics/cicd-lifecycle.webp)
