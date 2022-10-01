@@ -54,11 +54,11 @@
 
 ## CICD - Continous Improvement **&** Continuos Deployment/Delivery
 
-### CI
+#### CI
 Continous Improvement &rarr;  is the part which takes care of shipping quality code fast by leveraging tests, builds all bundled in the magic of automation. 
 
 
-### CD
+#### CD
 Continuous Deployment &rarr; is the process of moving software that has been built and tested successfully into production.
 
 Continuous delivery   &rarr; is an approach which incorporates the concepts of continuous integration, automated testing and continuous deployment. 
@@ -66,4 +66,7 @@ Continuous delivery   &rarr; is an approach which incorporates the concepts of c
 
 ![Cicd lifecycle](pics/cicd-lifecycle.png)
 
+
+## RoadMap to DevOps
+![DevOps RoadMap](https://roadmap.sh/devops)
 
