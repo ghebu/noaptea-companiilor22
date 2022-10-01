@@ -11,4 +11,4 @@
 
 ## What is DevOps? 
 
-[](pics/cicd-lifecycle.webp)
+![](pics/cicd-lifecycle.webp)
