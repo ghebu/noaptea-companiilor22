@@ -68,5 +68,5 @@ Continuous delivery   &rarr; is an approach which incorporates the concepts of c
 
 
 ## RoadMap to DevOps
-![DevOps RoadMap](https://roadmap.sh/devops)
+[DevOps RoadMap](https://roadmap.sh/devops)
 
