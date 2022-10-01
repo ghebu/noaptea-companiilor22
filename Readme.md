@@ -53,7 +53,14 @@ Confused? No worries. That's fine.
 
 
 
-## CICD
+## CICD - Continous Improvement **&** Continuos Deployment/Delivery
+
+Continous Improvement -->  is the part which takes care of shipping quality code fast by leveraging tests, builds all bundled in the magic of automation. 
+
+Continuous Deployment --> is the process of moving software that has been built and tested successfully into production.
+
+Continuous delivery   --> is an approach which incorporates the concepts of continuous integration, automated testing and continuous deployment. 
+                          The difference between continuous delivery and deployment is that business teams may decide not to release software into production with continuous delivery due to various reasons.
 
 ![Cicd lifecycle](pics/cicd-lifecycle.png)
 
