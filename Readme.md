@@ -5,16 +5,15 @@
 
 ## Agenda
 
-[$ whoami](#whoami)
-[What is DevOps?]($DevOps)  
 
 
-
-## $ whoami <a name="whoami"/>
+## $ whoami 
 
 ![The picture says it clearly](pics/whoami.png)
 
-## What is DevOps? <a name="DevOps"/>
+## What is DevOps?
+
+![What exactly IS DevOps](pics/whatisdevops.png)
 
 <details><summary>**DevOps is…**</summary>
 
@@ -51,11 +50,6 @@
 - to be trifled with!!!
 
 </details>
-
-Confused? No worries. That's fine.
-
-![What exactly IS DevOps](pics/whatisdevops.png)
-
 
 
 ## CICD - Continous Improvement **&** Continuos Deployment/Delivery
