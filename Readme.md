@@ -47,7 +47,7 @@
 
 </details>
 
-Confused? That's fine.
+Confused? No worries. That's fine.
 
 ![What exactly IS DevOps](pics/whatisdevops.png)
 
