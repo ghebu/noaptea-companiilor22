@@ -5,15 +5,15 @@
 
 ## Agenda
 
-[Headers](#headers)  
-[Emphasis](#emphasis)  
+[$ whoami](#headers)  
 
 
-## $ whoami
+
+## $ whoami <a name="$ whoami"/>
 
 ![The picture says it clearly](pics/whoami.png)
 
-## What is DevOps? 
+## What is DevOps? <a name="What is DevOps"/>
 
 <details><summary>**DevOps is…**</summary>
 
@@ -72,4 +72,3 @@ Continuous delivery   &rarr; is an approach which incorporates the concepts of c
 ![Cicd lifecycle](pics/cicd-lifecycle.png)
 
 
-<a name="headers"/>
