@@ -15,7 +15,7 @@
 
 ![What exactly IS DevOps](pics/whatisdevops.png)
 
-<details><summary>**DevOps is…**</summary>
+<details><summary><b>DevOps is…</b></summary>
 
 - a concept
 - a mindset
@@ -31,7 +31,7 @@
 - an awesome way to confidently develop and deliver software
 </details>
 
-<details><summary>**DevOps is NOT…**</summary>
+<details><summary><b>DevOps is NOT…</b></summary>
 
 - easily achieved nor implemented
 - a product or tool chain
