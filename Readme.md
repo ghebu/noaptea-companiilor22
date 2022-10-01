@@ -7,7 +7,7 @@
 
 [Headers](#headers)  
 [Emphasis](#emphasis)  
-<a name="headers"/>
+
 
 ## $ whoami
 
@@ -71,3 +71,5 @@ Continuous delivery   &rarr; is an approach which incorporates the concepts of c
 
 ![Cicd lifecycle](pics/cicd-lifecycle.png)
 
+
+<a name="headers"/>
