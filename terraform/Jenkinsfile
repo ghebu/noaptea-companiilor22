@@ -1,0 +1,65 @@
+pipeline {
+
+    agent any 
+    
+    parameters {
+        string(description: '', name: 'AWS_SECRET_KEY', defaultValue: 'null')
+        string(description: '', name: 'AWS_ACCESS_KEY', defaultValue: 'null')
+        choice(description: '', name: 'TERRAFORM_COMMAND', choices: [
+                                                                'apply',    
+                                                                'destroy']) 
+        choice(description: '', name: 'TERRAFORM_MODULE', choices: [
+                                                                '02-network',    
+                                                                '03-app'])
+    }
+
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                script { 
+                    git branch: 'main', url: 'https://github.com/ghebu/noaptea-companiilor22.git'   
+                }
+            }
+        }
+
+        // stage('Setup parameters') {
+        //     steps {
+        //         script { 
+        //             properties([
+        //                 parameters([
+        //                     choice(
+        //                         choices: ['02-network', '03-app'], 
+        //                         name: 'TERRAFORM_MODULE'
+        //                     ),
+        //                     choice(
+        //                         choices: ['apply', 'destroy'], 
+        //                         name: 'TERRAFORM_COMMAND'
+        //                     ),
+        //                     string(
+        //                         defaultValue: 'AWS_ACCESS_KEY', 
+        //                         name: 'AWS_ACCESS_KEY', 
+        //                         trim: true
+        //                     ),
+        //                     string(
+        //                         defaultValue: 'AWS_SECRET_KEY', 
+        //                         name: 'AWS_SECRET_KEY', 
+        //                         trim: true
+        //                     )
+        //                 ])
+        //             ])
+        //         }
+        //     }
+        // } 
+
+        stage('Run Terraform') { 
+            steps { 
+                sh '''
+                    ls
+                    pwd
+                    . ./prepare.sh ${AWS_ACCESS_KEY} ${AWS_SECRET_KEY} ${TERRAFORM_MODULE} ${TERRAFORM_COMMAND}
+                '''
+            }
+        }
+    }   
+}
