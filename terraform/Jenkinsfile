@@ -1,107 +1,171 @@
-pipeline {
+    pipeline {
 
-    agent { label "terraform"} 
-    
-    parameters {
-        string(description: '', name: 'AWS_ACCESS_KEY', defaultValue: 'null')
-        string(description: '', name: 'AWS_SECRET_KEY', defaultValue: 'null')
-        choice(description: '', name: 'TERRAFORM_COMMAND', choices: [
-                                                                'apply',    
-                                                                'destroy']) 
-        choice(description: '', name: 'TERRAFORM_MODULE', choices: [
-                                                                '02-network',    
-                                                                '03-app'])
-    }
+        agent { label "terraform"} 
+        
+        parameters {
+            string(description: '', name: 'AWS_ACCESS_KEY', defaultValue: 'null')
+            string(description: '', name: 'AWS_SECRET_KEY', defaultValue: 'null')
+            choice(description: '', name: 'ENV', choices: [
+                                                                    'DEV',    
+                                                                    'TEST',
+                                                                    'PROD']) 
+            choice(description: '', name: 'TERRAFORM_COMMAND', choices: [
+                                                                    'apply',    
+                                                                    'destroy']) 
+            choice(description: '', name: 'TERRAFORM_MODULE', choices: [
+                                                                    '02-network',    
+                                                                    '03-app'])
+        }
 
-    
-    stages {
-        stage('Checkout') {
-            steps {
-                script { 
-                    git branch: 'main', url: 'https://github.com/ghebu/noaptea-companiilor22.git'   
+        
+        stages {
+            stage('Checkout') {
+                steps {
+                    script { 
+                        git branch: 'main', url: 'https://github.com/ghebu/noaptea-companiilor22.git'   
+                    }
                 }
             }
-        }
 
-        // stage('Setup parameters') {
-        //     steps {
-        //         script { 
-        //             properties([
-        //                 parameters([
-        //                     choice(
-        //                         choices: ['02-network', '03-app'], 
-        //                         name: 'TERRAFORM_MODULE'
-        //                     ),
-        //                     choice(
-        //                         choices: ['apply', 'destroy'], 
-        //                         name: 'TERRAFORM_COMMAND'
-        //                     ),
-        //                     string(
-        //                         defaultValue: 'AWS_ACCESS_KEY', 
-        //                         name: 'AWS_ACCESS_KEY', 
-        //                         trim: true
-        //                     ),
-        //                     string(
-        //                         defaultValue: 'AWS_SECRET_KEY', 
-        //                         name: 'AWS_SECRET_KEY', 
-        //                         trim: true
-        //                     )
-        //                 ])
-        //             ])
-        //         }
-        //     }
-        // } 
+            // scripted way in the declarative pipeline.
+            // stage('Setup parameters') {
+            //     steps {
+            //         script { 
+            //             properties([
+            //                 parameters([
+            //                     choice(
+            //                         choices: ['02-network', '03-app'], 
+            //                         name: 'TERRAFORM_MODULE'
+            //                     ),
+            //                     choice(
+            //                         choices: ['apply', 'destroy'], 
+            //                         name: 'TERRAFORM_COMMAND'
+            //                     ),
+            //                     string(
+            //                         defaultValue: 'AWS_ACCESS_KEY', 
+            //                         name: 'AWS_ACCESS_KEY', 
+            //                         trim: true
+            //                     ),
+            //                     string(
+            //                         defaultValue: 'AWS_SECRET_KEY', 
+            //                         name: 'AWS_SECRET_KEY', 
+            //                         trim: true
+            //                     )
+            //                 ])
+            //             ])
+            //         }
+            //     }
+            // } 
 
-        stage('Run Terraform') { 
-            steps { 
-                sh '''
+            stage('Terraform plan') { 
+                steps { 
+                    sh '''
 
-export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
-export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
-export AWS_REGION="us-east-1"
+    export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
+    export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
+    export AWS_REGION="us-east-1"
 
-environment="dev"
-component=${TERRAFORM_MODULE}
-command=${TERRAFORM_COMPONENT}
-root_dir="terraform/environment/${environment}/${component}"
-name_prefix="noaptea-companiilor"
+    environment="${ENV}"
+    component=${TERRAFORM_MODULE}
+    command=${TERRAFORM_COMMAND}
+    root_dir="terraform/environment/${environment}/${component}"
+    name_prefix="noaptea-companiilor"
 
-export TF_VAR_region=$AWS_REGION
-export TF_VAR_remote_state_bucket=$(aws s3api list-buckets --region=$TF_VAR_region |\
-                                                           jq ' .Buckets[].Name' |\
-                                                           grep $name_prefix |\
-                                                           tr -d '"') 
+    export TF_VAR_region=$AWS_REGION
+    export TF_VAR_remote_state_bucket=$(aws s3api list-buckets --region=$TF_VAR_region |\
+                                                            jq ' .Buckets[].Name' |\
+                                                            grep $name_prefix |\
+                                                            tr -d '"') 
 
-export TF_VAR_dynamodb_table=$(aws dynamodb list-tables --region=$TF_VAR_region \
-                                                        --query "TableNames[]" \
-                                                        --no-cli-pager |\
-                                                        grep $name_prefix |\
-                                                        tr -d '"' |\
-                                                        tr -d " ")
-#Output variables
-echo -e "\n\nUsing the variables:"
-echo "REGION: $TF_VAR_region"
-echo "BUCKET: $TF_VAR_remote_state_bucket"
-echo "Dynamo: $TF_VAR_dynamodb_table"
+    export TF_VAR_dynamodb_table=$(aws dynamodb list-tables --region=$TF_VAR_region \
+                                                            --query "TableNames[]" \
+                                                            --no-cli-pager |\
+                                                            grep $name_prefix |\
+                                                            tr -d '"' |\
+                                                            tr -d " ")
+    #Output variables
+    echo -e "\n\nUsing the variables:"
+    echo "REGION: $TF_VAR_region"
+    echo "BUCKET: $TF_VAR_remote_state_bucket"
+    echo "Dynamo: $TF_VAR_dynamodb_table"
 
-#Moving into the components directory
-cd $root_dir
-#Terraform init using backend variables.
-terraform init      -backend-config "region=$TF_VAR_region"  \
-                    -backend-config "bucket=$TF_VAR_remote_state_bucket" \
-                    -backend-config "dynamodb_table=$TF_VAR_dynamodb_table" \
-                    -lock=true \
-                    -reconfigure 
+    #Moving into the components directory
+    cd $root_dir
+    #Terraform init using backend variables.
+    terraform init      -backend-config "region=$TF_VAR_region"  \
+                        -backend-config "bucket=$TF_VAR_remote_state_bucket" \
+                        -backend-config "dynamodb_table=$TF_VAR_dynamodb_table" \
+                        -lock=true \
+                        -reconfigure 
 
 
 
-terraform $command  -var remote_state_bucket=${TF_VAR_remote_state_bucket} \
-                    
-                    
+    
+    terraform plan  -var remote_state_bucket=${TF_VAR_remote_state_bucket}                     
+                        
 
-#Going back to the initial directory
-cd -                 '''
+    #Going back to the initial directory
+    cd -       
+                    '''
+                }
+            }
+            stage("approve") {
+                steps {
+                    script {
+                        env.CONFIRMATION = input message: 'User input required', ok: 'Apply',
+                                parameters: [choice(name: 'Apply or Abort', choices: 'Apply\nAbort', description: 'Do you wish to continue?')]
+                    }
+                    echo "The user input was: ${env.CONFIRMATION}"
+                }
+            }
+            stage("Terraform Run") { 
+                steps { 
+                    sh ''' 
+    export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
+    export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
+    export AWS_REGION="us-east-1"
+
+    environment="${ENV}"
+    component=${TERRAFORM_MODULE}
+    command=${TERRAFORM_COMMAND}
+    root_dir="terraform/environment/${environment}/${component}"
+    name_prefix="noaptea-companiilor"
+
+    export TF_VAR_region=$AWS_REGION
+    export TF_VAR_remote_state_bucket=$(aws s3api list-buckets --region=$TF_VAR_region |\
+                                                            jq ' .Buckets[].Name' |\
+                                                            grep $name_prefix |\
+                                                            tr -d '"') 
+
+    export TF_VAR_dynamodb_table=$(aws dynamodb list-tables --region=$TF_VAR_region \
+                                                            --query "TableNames[]" \
+                                                            --no-cli-pager |\
+                                                            grep $name_prefix |\
+                                                            tr -d '"' |\
+                                                            tr -d " ")
+
+
+    #Moving into the components directory
+    cd $root_dir
+#    #Terraform init using backend variables.
+#    terraform init      -backend-config "region=$TF_VAR_region"  \
+#                        -backend-config "bucket=$TF_VAR_remote_state_bucket" \
+#                        -backend-config "dynamodb_table=$TF_VAR_dynamodb_table" \
+#                        -lock=true \
+#                        -reconfigure 
+
+    terraform ${TERRAFORM_COMMAND}  -var remote_state_bucket=${TF_VAR_remote_state_bucket}                     
+                        
+
+    #Going back to the initial directory
+    cd -
+                    '''
+                }
+            }
+ }       
+        post { 
+            always { 
+                cleanWs()
             }
         }
-    }   
-}
+    }
