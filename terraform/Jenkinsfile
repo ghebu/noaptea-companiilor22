@@ -3,8 +3,8 @@ pipeline {
     agent { label "terraform"} 
     
     parameters {
-        string(description: '', name: 'AWS_SECRET_KEY', defaultValue: 'null')
         string(description: '', name: 'AWS_ACCESS_KEY', defaultValue: 'null')
+        string(description: '', name: 'AWS_SECRET_KEY', defaultValue: 'null')
         choice(description: '', name: 'TERRAFORM_COMMAND', choices: [
                                                                 'apply',    
                                                                 'destroy']) 
@@ -57,7 +57,7 @@ pipeline {
                 sh '''
                     ls
                     pwd 
-                    . ./prepare.sh ${AWS_ACCESS_KEY} ${AWS_SECRET_KEY} ${TERRAFORM_MODULE} ${TERRAFORM_COMMAND}
+                    source ./prepare.sh ${AWS_ACCESS_KEY} ${AWS_SECRET_KEY} ${TERRAFORM_MODULE} ${TERRAFORM_COMMAND}
                 '''
             }
         }
