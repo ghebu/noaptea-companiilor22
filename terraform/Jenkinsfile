@@ -168,9 +168,9 @@
                     #Going back to the initial directory
                     cd -
                     '''
-                }
             }
-}       
+        }
+    }       
     post { 
         always { 
             cleanWs()
