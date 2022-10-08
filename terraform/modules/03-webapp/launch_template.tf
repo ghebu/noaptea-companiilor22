@@ -7,10 +7,10 @@ resource "aws_security_group" "sg" {
   dynamic "ingress" {
     for_each = var.sg_rules
     description      = "Allow http from anywhere"
-    from_port        = each.from_port
-    to_port          = each.to_port
-    protocol         = each.protocol
-    cidr_blocks      = each.cidr_blocks
+    from_port        = ingress.from_port
+    to_port          = ingress.to_port
+    protocol         = ingress.protocol
+    cidr_blocks      = ingress.cidr_blocks
   }
 
 
