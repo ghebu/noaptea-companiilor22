@@ -162,7 +162,7 @@
                     cd $root_dir
 
                     terraform ${TERRAFORM_COMMAND}  --auto-approve
-                    #-var remote_state_bucket=${TF_VAR_remote_state_bucket} --auto-approve
+                        #-var remote_state_bucket=${TF_VAR_remote_state_bucket} --auto-approve
                                         
 
                     #Going back to the initial directory
