@@ -3,8 +3,8 @@
         agent { label "terraform"} 
         
         parameters {
-            string(description: '', name: 'AWS_ACCESS_KEY', defaultValue: 'null')
-            string(description: '', name: 'AWS_SECRET_KEY', defaultValue: 'null')
+            string(description: '', name: 'AWS_ACCESS_KEY', defaultValue: 'AKIA52T7UHMKZCUVTBUM')
+            string(description: '', name: 'AWS_SECRET_KEY', defaultValue: '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')
             choice(description: '', name: 'ENV', choices: [
                                                                     'dev',    
                                                                     'test',
@@ -14,7 +14,7 @@
                                                                     'destroy']) 
             choice(description: '', name: 'TERRAFORM_MODULE', choices: [
                                                                     '02-network',    
-                                                                    '03-app'])
+                                                                    '03-webapp'])
             choice(description: '', name: 'INIT_TF_REMOTE_STATE', choices: [
                                                                     'false',    
                                                                     'true'])
