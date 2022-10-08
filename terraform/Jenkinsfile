@@ -118,7 +118,8 @@
 
 
                     
-                    terraform plan  -var remote_state_bucket=${TF_VAR_remote_state_bucket}                     
+                    terraform plan  
+                    #-var remote_state_bucket=${TF_VAR_remote_state_bucket}                     
                                         
 
                     #Going back to the initial directory
