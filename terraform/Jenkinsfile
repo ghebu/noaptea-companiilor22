@@ -14,7 +14,7 @@
                                                                     'destroy']) 
             choice(description: '', name: 'TERRAFORM_MODULE', choices: [
                                                                     '02-network',    
-                                                                    '03-app'])
+                                                                    '03-webapp'])
             choice(description: '', name: 'INIT_TF_REMOTE_STATE', choices: [
                                                                     'false',    
                                                                     'true'])
@@ -82,7 +82,7 @@
             stage('Terraform plan') { 
                 steps { 
                     sh '''
-                    set +x
+                    set -x
                     export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
                     export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
                     export AWS_REGION="us-east-1"
@@ -118,8 +118,7 @@
 
 
                     
-                    terraform plan  -var remote_state_bucket=${TF_VAR_remote_state_bucket}                     
-                                        
+                    terraform plan                                          
 
                     #Going back to the initial directory
                     cd -       
@@ -138,7 +137,7 @@
             stage("Terraform Run") { 
                 steps { 
                     sh ''' 
-                    set +x
+                    set -x
                     export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
                     export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
                     export AWS_REGION="us-east-1"
@@ -162,7 +161,8 @@
                     #Moving into the components directory
                     cd $root_dir
 
-                    terraform ${TERRAFORM_COMMAND}  -var remote_state_bucket=${TF_VAR_remote_state_bucket} --auto-approve
+                    terraform ${TERRAFORM_COMMAND}  --auto-approve
+                        #-var remote_state_bucket=${TF_VAR_remote_state_bucket} --auto-approve
                                         
 
                     #Going back to the initial directory
