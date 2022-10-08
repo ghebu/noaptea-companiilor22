@@ -16,6 +16,6 @@ data "aws_ami" "ami" {
 data "aws_vpc" "main" {
     filter {
         name = 	"tag:Name"
-        values = "noaptea-companiilor-vpc"
+        values = ["noaptea-companiilor-vpc"]
     }
 }
