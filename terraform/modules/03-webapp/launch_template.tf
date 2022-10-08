@@ -84,7 +84,7 @@ resource "aws_launch_template" "foo" {
     }
   }
 
-  user_data = filebase64("${path.module}/user-data.sh")
+  user_data = filebase64("${path.module}/user-data.sh" )
 }
 
 
