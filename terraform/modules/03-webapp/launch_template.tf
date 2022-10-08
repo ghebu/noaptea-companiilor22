@@ -13,6 +13,34 @@ data "aws_ami" "ami" {
   }
 }
 
+data "aws_vpc" "main" {
+    filter {
+        name = 	"tag:Name"
+        value = "noaptea-companiilor-vpc"
+    }
+}
+
+resource "aws_security_group" "sg" {
+  name        = "${var.name_prefix}-sg"
+  description = "Allow inbound traffic"
+  vpc_id      = aws_vpc.main.id
+
+  dynamic "ingress" {
+    for_each = var.sg_rules
+    description      = "Allow http from anywhere"
+    from_port        = each.from_port
+    to_port          = each.to_port
+    protocol         = each.protocol
+    cidr_blocks      = each.cidr_blocks
+  }
+
+
+  tags = {
+    Name = "${var.name_prefix}-sg"
+  }
+}
+
+
 resource "aws_launch_template" "foo" {
   name = "${var.name_prefix}-launch-template"
 
@@ -46,7 +74,7 @@ resource "aws_launch_template" "foo" {
     enabled = true
   }
 
-  vpc_security_group_ids = ["sg-12345678"]
+  vpc_security_group_ids = [aws_security_group.sg.id]
 
   tag_specifications {
     resource_type = "instance"
@@ -58,3 +86,5 @@ resource "aws_launch_template" "foo" {
 
   user_data = filebase64("${path.module}/user-data.sh")
 }
+
+

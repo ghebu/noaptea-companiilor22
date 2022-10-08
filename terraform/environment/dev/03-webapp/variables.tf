@@ -5,3 +5,7 @@ variable "remote_state_bucket" {
 variable "dynamodb_table" {
     default = "noaptea-companiilor-locks"
 }
+
+variable "name_prefix" { 
+    default = "noaptea-companiilor"
+}
