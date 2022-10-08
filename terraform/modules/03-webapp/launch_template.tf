@@ -2,10 +2,10 @@
 resource "aws_security_group" "sg" {
   name        = "${var.name_prefix}-sg"
   description = "Allow inbound traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = data.aws_vpc.main.id
 
   dynamic "ingress" {
-    for_each = var.sg_rules
+    for_each = var.sg_ingress_rules
     description      = "Allow http from anywhere"
     from_port        = ingress.from_port
     to_port          = ingress.to_port
