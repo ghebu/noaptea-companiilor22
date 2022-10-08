@@ -26,3 +26,7 @@ variable "sg_ingress_rules" {
     }
   ]
 }
+
+variable "name_prefix" { 
+    default = "noaptea-companiilor"
+}
