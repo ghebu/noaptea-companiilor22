@@ -118,9 +118,7 @@
 
 
                     
-                    terraform plan  
-                    #-var remote_state_bucket=${TF_VAR_remote_state_bucket}                     
-                                        
+                    terraform plan                                          
 
                     #Going back to the initial directory
                     cd -       
@@ -163,7 +161,8 @@
                     #Moving into the components directory
                     cd $root_dir
 
-                    terraform ${TERRAFORM_COMMAND}  -var remote_state_bucket=${TF_VAR_remote_state_bucket} --auto-approve
+                    terraform ${TERRAFORM_COMMAND}  --auto-approve
+                    #-var remote_state_bucket=${TF_VAR_remote_state_bucket} --auto-approve
                                         
 
                     #Going back to the initial directory
