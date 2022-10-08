@@ -29,8 +29,12 @@ data "aws_iam_policy" "instance_core" {
   name = "AmazonSSMManagedInstanceCore"
 }
 
-resource "aws_iam_policy_attachment" "test-attach" {
+resource "aws_iam_policy_attachment" "attach_instance_profile" {
   name       = "InstanceCore"
   roles      = [aws_iam_role.role.name]
   policy_arn = data.aws_iam_policy.instance_core.arn
+}
+
+output "instance_core_arn" { 
+    value = data.aws_iam_policy.instance_core.arn
 }

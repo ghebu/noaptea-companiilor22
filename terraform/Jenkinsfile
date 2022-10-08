@@ -3,8 +3,8 @@
         agent { label "terraform"} 
         
         parameters {
-            string(description: '', name: 'AWS_ACCESS_KEY', defaultValue: 'AKIAUI7BG5WQJPGSIZV4')
-            string(description: '', name: 'AWS_SECRET_KEY', defaultValue: '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')
+            string(description: '', name: 'AWS_ACCESS_KEY', defaultValue: 'null')
+            string(description: '', name: 'AWS_SECRET_KEY', defaultValue: 'null')
             choice(description: '', name: 'ENV', choices: [
                                                                     'dev',    
                                                                     'test',
