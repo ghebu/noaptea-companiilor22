@@ -1,24 +1,3 @@
-data "aws_ami" "ami" {
-  most_recent = true
-  owners      = ["137112412989"]
-
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-kernel-5.10-hvm-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
-data "aws_vpc" "main" {
-    filter {
-        name = 	"tag:Name"
-        value = "noaptea-companiilor-vpc"
-    }
-}
 
 resource "aws_security_group" "sg" {
   name        = "${var.name_prefix}-sg"
@@ -28,10 +7,10 @@ resource "aws_security_group" "sg" {
   dynamic "ingress" {
     for_each = var.sg_rules
     description      = "Allow http from anywhere"
-    from_port        = each.from_port
-    to_port          = each.to_port
-    protocol         = each.protocol
-    cidr_blocks      = each.cidr_blocks
+    from_port        = ingress.from_port
+    to_port          = ingress.to_port
+    protocol         = ingress.protocol
+    cidr_blocks      = ingress.cidr_blocks
   }
 
 
