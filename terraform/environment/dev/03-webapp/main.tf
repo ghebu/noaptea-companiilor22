@@ -1,5 +1,6 @@
 module "webapp" { 
     source = "../../../modules/03-webapp"
+    name_prefix = "noaptea-companiilor"
     sg_ingress_rules = [
     {
       from_port = 80
