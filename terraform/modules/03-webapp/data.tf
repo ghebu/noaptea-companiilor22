@@ -16,9 +16,10 @@
 data "aws_vpc" "main" {
  filter {
     name   = "tag:Name"
-    values = [var.vpc_name]
+    values = var.vpc_name
   }
 }
+
 output "vpc" {
     value = data.aws_vpc.main.id
 }
