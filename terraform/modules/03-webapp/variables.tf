@@ -25,3 +25,7 @@ variable "region" {
 variable "ami_id" { 
     default = "ami-0636eac5d73e0e5d7"
 }
+
+variable "instance_type" {
+    default = "t2.small"
+}
