@@ -14,12 +14,21 @@
 # }
 
 data "aws_vpc" "main" {
-    filter {
-        name = 	"tag:Name"
-        values = toset("noaptea-companiilor-vpc")
-    }
-}
+#     filter {
+#         name = 	"tag:Name"
+#         values = toset("noaptea-companiilor-vpc")
+#     }
+# }
 
+   filter {
+     name = "tag-value"
+     values = ["noaptea-companiilor-vpc"]
+   }
+   filter {
+     name = "tag-key"
+     values = ["Name"]
+   }
+}
 output "vpc" {
     value = data.aws_vpc.main.id
 }
