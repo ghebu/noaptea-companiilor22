@@ -23,7 +23,7 @@ resource "aws_lb" "alb" {
 
 resource "aws_lb_target_group" "alb" {
   name        = "${var.name_prefix}-alb-tg"
-  target_type = "alb"
+  //target_type = "alb"
   port        = 80
   protocol    = "TCP"
   vpc_id      = data.terraform_remote_state.network.outputs.vpc_id
