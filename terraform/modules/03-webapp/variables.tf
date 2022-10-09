@@ -11,3 +11,6 @@ variable "name_prefix" {
     default = "noaptea-companiilor"
 }
 
+variable "vpc_name" { 
+    default = "noaptea-companiilor-vpc"
+}
