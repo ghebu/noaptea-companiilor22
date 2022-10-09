@@ -9,7 +9,4 @@ resource "aws_autoscaling_group" "asg" {
     id      = aws_launch_template.launch_template.id
     version = "$Latest"
   }
-  tags  = {
-    Name = "${var.name_prefix}-asg"
-  }
 }
