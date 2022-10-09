@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "asg" {
-  
+  name               = "${var.name_prefix}-asg"
   desired_capacity   = 2
   max_size           = 2
   min_size           = 1
@@ -8,5 +8,8 @@ resource "aws_autoscaling_group" "asg" {
   launch_template {
     id      = aws_launch_template.launch_template.id
     version = "$Latest"
+  }
+  tags {
+    Name = "${var.name_prefix}-asg"
   }
 }

@@ -22,7 +22,7 @@ resource "aws_security_group" "sg" {
 
 resource "aws_launch_template" "launch_template" {
   name = "${var.name_prefix}-launch-template"
-  ebs_optimized = true
+  ebs_optimized = false
   image_id = var.ami_id
   instance_type = var.instance_type
   key_name = null
