@@ -21,3 +21,7 @@ variable "number_private_subnets" {
 variable "map_az" {
     default = ["a","b","c","d","e","f","g"]
 }
+
+variable "region" { 
+    default = "us-east-1"
+}
