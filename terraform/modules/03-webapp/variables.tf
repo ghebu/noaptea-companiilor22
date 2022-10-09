@@ -4,6 +4,7 @@ variable "instance_profile_name" {
 
 variable "sg_ingress_rules" {
   description = "List of sg_ingress_rules"
+  default = null 
 }
 
 variable "name_prefix" { 
