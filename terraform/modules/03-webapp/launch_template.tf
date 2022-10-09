@@ -10,7 +10,7 @@ resource "aws_security_group" "sg" {
                 from_port        = ingress.value.from_port
                 to_port          = ingress.value.to_port
                 protocol         = ingress.value.protocol
-                cidr_blocks      = ["0.0.0.0/0"]
+                cidr_blocks      = ingress.value.cidr_blocks
         }
     }
 
@@ -37,7 +37,7 @@ resource "aws_launch_template" "launch_template" {
 
 
   iam_instance_profile {
-    name = aws_iam_instance_profile.test_profile.arn
+    name = aws_iam_instance_profile.test_profile.name
   }
 
   image_id = var.ami_id
