@@ -9,3 +9,11 @@ variable "name_prefix" {
 variable "number_of_subnets" { 
     default = 4 
 }
+
+variable "number_public_subnets" { 
+    default = 2
+}
+
+variable "number_private_subnets" { 
+    default = 2
+}

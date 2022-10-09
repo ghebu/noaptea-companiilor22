@@ -88,14 +88,14 @@ resource "aws_route" "private" {
 
 // associating the internet gateway id and subnet ids to the public rt
 resource "aws_route_table_association" "public-subnets" {
-    count          = 2 
+    count          = var.number_public_subnets
     subnet_id      = aws_subnet.main[count.index].id
     route_table_id = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "private-subnets" {
-    count          = 2 
-    subnet_id      = aws_subnet.main[count.index + 2].id
+    count          = var.number_private_subnets 
+    subnet_id      = aws_subnet.main[count.index + var.number_public_subnets].id
     route_table_id = aws_route_table.private.id
 }
 
