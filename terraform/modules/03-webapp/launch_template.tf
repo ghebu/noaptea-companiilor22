@@ -22,38 +22,16 @@ resource "aws_security_group" "sg" {
 
 resource "aws_launch_template" "launch_template" {
   name = "${var.name_prefix}-launch-template"
-
-
-  cpu_options {
-    core_count       = 2
-    threads_per_core = 2
-  }
-
-  credit_specification {
-    cpu_credits = "standard"
-  }
-
   ebs_optimized = true
-
-
-  iam_instance_profile {
-    name = aws_iam_instance_profile.test_profile.name
-  }
-
   image_id = var.ami_id
-
-
-
   instance_type = var.instance_type
   key_name = null
-
-
-  monitoring {
-    enabled = true
-  }
-
   vpc_security_group_ids = [aws_security_group.sg.id]
+  user_data = filebase64("${path.module}/user-data.sh")
 
+ iam_instance_profile {
+    name = aws_iam_instance_profile.test_profile.name
+  }
   tag_specifications {
     resource_type = "instance"
 
@@ -61,8 +39,6 @@ resource "aws_launch_template" "launch_template" {
       LAUNCH_TEMPLATE = "TRUE"
     }
   }
-
-  user_data = filebase64("${path.module}/user-data.sh")
 }
 
 
