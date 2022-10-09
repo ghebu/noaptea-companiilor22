@@ -17,3 +17,7 @@ variable "number_public_subnets" {
 variable "number_private_subnets" { 
     default = 2
 }
+
+variable "map_az" {
+    default = ["a","b","c","d"]
+}
