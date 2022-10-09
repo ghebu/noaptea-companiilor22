@@ -4,15 +4,15 @@ resource "aws_security_group" "sg" {
   description = "Allow inbound traffic"
   vpc_id      = data.aws_vpc.main.id
 
-#   dynamic "ingress" {
-    # for_each = var.sg_ingress_rules
-    # content {
+  dynamic "ingress" {
+    for_each = var.sg_ingress_rules
+    content {
     ingress {
-        from_port        = 80 #ingress.value.from_port
-        to_port          = 80 #ingress.value.to_port
-        protocol         = "tcp" #ingress.value.protocol
+        from_port        = ingress.value.from_port
+        to_port          = ingress.value.to_port
+        protocol         = ingress.value.protocol
         cidr_blocks      = ["0.0.0.0/0"]
-    
+    }
   }
 
 
