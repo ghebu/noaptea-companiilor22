@@ -11,9 +11,6 @@ variable "name_prefix" {
     default = "noaptea-companiilor"
 }
 
-variable "vpc_name" { 
-    default = "noaptea-companiilor-vpc"
-}
 
 variable "network_remote_state_bucket" {
 

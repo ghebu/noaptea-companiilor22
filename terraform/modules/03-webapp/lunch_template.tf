@@ -1,23 +1,23 @@
 
-# resource "aws_security_group" "sg" {
-#   name        = "${var.name_prefix}-sg"
-#   description = "Allow inbound traffic"
-#   vpc_id      = data.aws_vpc.main.id
+resource "aws_security_group" "sg" {
+  name        = "${var.name_prefix}-sg"
+  description = "Allow inbound traffic"
+  vpc_id      = data.terraform_remote_state.network.outputs.vpc_id
 
-#     dynamic "ingress" {
-#         for_each = var.sg_ingress_rules
-#         content {
-#                 from_port        = ingress.value.from_port
-#                 to_port          = ingress.value.to_port
-#                 protocol         = ingress.value.protocol
-#                 cidr_blocks      = ["0.0.0.0/0"]
-#         }
-#     }
+    dynamic "ingress" {
+        for_each = var.sg_ingress_rules
+        content {
+                from_port        = ingress.value.from_port
+                to_port          = ingress.value.to_port
+                protocol         = ingress.value.protocol
+                cidr_blocks      = ["0.0.0.0/0"]
+        }
+    }
 
-#   tags = {
-#     Name = "${var.name_prefix}-sg"
-#   }
-# }
+  tags = {
+    Name = "${var.name_prefix}-sg"
+  }
+}
 
 
 # resource "aws_launch_template" "foo" {
