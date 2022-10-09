@@ -23,7 +23,7 @@ data "terraform_remote_state" "network" {
 }
 
 data "aws_vpc" "main" {
- id = data.terraform_remote_state.network.vpc_id
+ id = data.terraform_remote_state.network.outputs.vpc_id
 }
 
 output "vpc" {
