@@ -15,7 +15,7 @@ variable "vpc_name" {
     default = "noaptea-companiilor-vpc"
 }
 
-variable "remote_state_bucket" {
+variable "network_remote_state_bucket" {
 
 }
 variable "network_remote_state_key" {
