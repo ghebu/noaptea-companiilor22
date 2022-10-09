@@ -13,11 +13,17 @@
 #   }
 # }
 
+data "terraform_remote_state" "network" {
+    backend = "s3"
+    config = {
+        bucket = var.remote_state_bucket
+        key = var.network_remote_state_key
+        region = var.region
+    }
+}
+
 data "aws_vpc" "main" {
- filter {
-    name   = "tag:Name"
-    values = var.vpc_name
-  }
+ id = data.terraform_remote_state.network.vpc_id
 }
 
 output "vpc" {

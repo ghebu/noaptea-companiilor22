@@ -14,3 +14,13 @@ variable "name_prefix" {
 variable "vpc_name" { 
     default = "noaptea-companiilor-vpc"
 }
+
+variable "remote_state_bucket" {
+
+}
+variable "network_remote_state_key" {
+    default = "02-network.tfstate"
+}
+variable "region" {
+    default = "us-east-1"
+}
