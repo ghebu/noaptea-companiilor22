@@ -21,3 +21,7 @@ variable "network_remote_state_key" {
 variable "region" {
     default = "us-east-1"
 }
+
+variable "ami_id" { 
+    default = "ami-0636eac5d73e0e5d7"
+}
