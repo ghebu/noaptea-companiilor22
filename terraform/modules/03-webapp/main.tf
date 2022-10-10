@@ -3,7 +3,7 @@ resource "aws_autoscaling_group" "asg" {
   desired_capacity   = 2
   max_size           = 2
   min_size           = 1
-  vpc_zone_identifier = data.terraform_remote_state.network.outputs.private_subnets
+  vpc_zone_identifier = data.terraform_remote_state.network.outputs.public_subnets
   target_group_arns = [aws_lb_target_group.alb.arn]
   health_check_type = "ELB"
   launch_template {
