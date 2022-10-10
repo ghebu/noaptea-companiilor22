@@ -102,3 +102,43 @@ resource "aws_route_table_association" "private-subnets" {
     route_table_id = aws_route_table.private.id
 }
 
+
+
+
+
+//endpoint for ssm
+
+resource "aws_security_group" "endpoint" {
+  name        = "${var.name_prefix}-endpoint-sg"
+  description = "Allow inbound traffic"
+  vpc_id      = aws_vpc.main.id
+  ingress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.name_prefix}-sg"
+  }
+}
+
+resource "aws_vpc_endpoint" "ec2" {
+  vpc_id            = aws_vpc.main.id
+  service_name      = "ssmmessages.${var.region}.amazonaws.com"
+  vpc_endpoint_type = "Interface"
+
+  security_group_ids = [
+    aws_security_group.endpoint.id,
+  ]
+
+  private_dns_enabled = true
+}
