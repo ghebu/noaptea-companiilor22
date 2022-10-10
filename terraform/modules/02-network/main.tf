@@ -133,7 +133,7 @@ resource "aws_security_group" "endpoint" {
 
 resource "aws_vpc_endpoint" "ec2" {
   vpc_id            = aws_vpc.main.id
-  service_name      = "ssmmessages.${var.region}.amazonaws.com"
+  service_name      = "com.amazonaws.${var.region}.ssmmessages"
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [
