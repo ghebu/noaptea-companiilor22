@@ -14,6 +14,8 @@ resource "aws_instance" "bastion" {
     network_interface_id = aws_network_interface.bastion.id
     device_index         = 0
   }
+
+  iam_instance_profile = aws_iam_instance_profile.test_profile.name_prefix
   tags = { 
     Name = "Bastion"
   }
