@@ -14,5 +14,8 @@ resource "aws_instance" "bastion" {
     network_interface_id = aws_network_interface.bastion.id
     device_index         = 0
   }
+  tags = { 
+    Name = "Bastion"
+  }
 
 }
