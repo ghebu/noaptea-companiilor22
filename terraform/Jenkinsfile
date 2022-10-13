@@ -49,36 +49,6 @@
                 }
             }
 
-            // scripted way in the declarative pipeline.
-            // stage('Setup parameters') {
-            //     steps {
-            //         script { 
-            //             properties([
-            //                 parameters([
-            //                     choice(
-            //                         choices: ['02-network', '03-app'], 
-            //                         name: 'TERRAFORM_MODULE'
-            //                     ),
-            //                     choice(
-            //                         choices: ['apply', 'destroy'], 
-            //                         name: 'TERRAFORM_COMMAND'
-            //                     ),
-            //                     string(
-            //                         defaultValue: 'AWS_ACCESS_KEY', 
-            //                         name: 'AWS_ACCESS_KEY', 
-            //                         trim: true
-            //                     ),
-            //                     string(
-            //                         defaultValue: 'AWS_SECRET_KEY', 
-            //                         name: 'AWS_SECRET_KEY', 
-            //                         trim: true
-            //                     )
-            //                 ])
-            //             ])
-            //         }
-            //     }
-            // } 
-
             stage('Terraform plan') { 
                 steps { 
                     sh '''
