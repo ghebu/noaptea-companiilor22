@@ -22,7 +22,7 @@ resource "aws_subnet" "main" {
 
   tags = {
     Name = "${var.name_prefix}-subnet-${count.index}"
-    Scope = count.index > 2 ? "private" : "public"
+    Scope = count.index > 1 ? "private" : "public"
   }
 }
 
